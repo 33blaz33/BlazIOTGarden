@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+   <head>
+      <title>IOT Garden</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+      <!-- Styles -->
+      <link rel="stylesheet" href='../static/style.css'/>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      
+      <!-- Scripts -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="../static/scripts.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   </head>
+
+   <body style="background-color: #4B515D;">
+      <div class="container p-4 my-5" style="background-color: white; border-radius: 35px;">
+         
+         <div class="row d-flex justify-content-center align-items-center">
+            
+	    <div class="d-flex justify-content-end">
+		  <div>Last refreshed on&nbsp;</div>
+		  <div id="time">{{ time }}</div>
+             </div>
+	     
+            <h1>IOT Garden</h1>       
+            
+            <div class="row fs-4 mb-3">
+               <div class="col-7 col-sm-7 col-md-6">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-thermometer-half" viewBox="0 0 16 16">
+                     <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415z"></path><path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1z"></path>
+                  </svg>
+                  Temperature
+               </div>
+	       	       
+	       <div class="col-5 col-sm-5 col-md-6 d-flex">
+		  <div id="temperature">{{ temperature }}</div>
+		  <div>°C</div>
+	       </div>
+	       
+            </div>
+            
+            <div class="row fs-4 mb-3">
+               <div class="col-7 col-sm-7 col-md-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-moisture" viewBox="0 0 16 16">
+                    <path d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5h-2zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a28.458 28.458 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a28.458 28.458 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001L7 1.5zm0 0-.364-.343L7 1.5zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267z"/>
+                  </svg>
+                  Moisture
+               </div>
+	       
+	       <div class="col-5 col-sm-5 col-md-6 d-flex">
+		  <div id="humidity">{{ humidity }}</div>
+		  <div>%</div>
+	       </div>
+
+            </div>
+	    
+	    <div class="row fs-4 mb-3">
+               <div class="col-7 col-sm-7 col-md-6">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">
+			<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+		  </svg>
+                  Light
+               </div>
+	       
+	       <div class="col-5 col-sm-5 col-md-6 d-flex">
+		  <div id="light">{{ light }}</div>
+		  <div>&nbsp;[1-100]</div>
+	       </div>
+	       
+            </div>
+         
+            <div class="row mb-3">
+               <button id="btnPump" type="button" class="btn btn-primary" onClick="onPumpClick()">Pump</button>
+            </div>
+         
+         </div>
+         
+      </div>
+      
+
+      <div class="container p-4 my-5" style="background-color: white; border-radius: 35px;">
+	    <div class="row d-flex justify-content-center align-items-center">
+		  <h1>Measurements</h1>  
+		  <canvas id="chartAll"></canvas>
+	    </div>
+      </div>
+      
+      <script>
+	    // This part of script must be defined here becasue of syntax hack
+	    let data = {
+		  labels: {{ labels | safe }},
+		  datasets: [
+			  {
+				label: "Temperature",
+				data: {{ temperatureValues | safe }},
+				borderColor: "#f5564a"
+			  },
+			  {
+				label: "Moisture",
+				data: {{ moistureValues | safe }},
+				borderColor: "#1db2f5"
+			  },
+			  {
+				label: "Light",
+				data: {{ lightValues | safe }},
+				borderColor: "#ffc720"
+			  }
+		  ]
+
+	    }
+	    initCharts();
+      </script>
+
+   </body>
+</html>
